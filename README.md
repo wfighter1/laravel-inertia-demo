@@ -1,4 +1,19 @@
 <code>
+
+docker run --rm \
+    --pull=always \
+    -v "$(pwd)":/opt \
+    -w /opt \
+    laravelsail/php81-composer:latest \
+    bash -c "composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/ && laravel new my-example-app && cd my-example-app && php ./artisan sail:install --with=mysql,redis,meilisearch"
+
+cd my-example-app
+
+//选择需要的组件
+
+./vendor/bin/sail pull mysql redis meilisearch mailhog selenium
+./vendor/bin/sail build
+
 修改vendor/laravel/sail/runtime/8.1/Dockerfile为以下内容
 
 FROM calmiter40/sail-8.1-app:latest
